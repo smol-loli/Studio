@@ -22,38 +22,56 @@ jobs:
       - name: Nuget Restore
         run: nuget restore
 
-      - name: Build .Net7
+      - name: Build .Net7 Windows
         run: msbuild /t:AssetStudio_GUI:publish /p:Configuration=Release /p:TargetFramework=net7.0-windows /p:SelfContained=false /verbosity:minimal
 
-      - name: Build .Net8
+      - name: Build .Net8 Windows
         run: msbuild /t:AssetStudio_GUI:publish /p:Configuration=Release /p:TargetFramework=net8.0-windows /p:SelfContained=false /verbosity:minimal
 
-      - name: Build .Net7 CLI
+      - name: Build .Net8 Linux
+        run: msbuild /t:AssetStudio_GUI:publish /p:Configuration=Release /p:TargetFramework=net8.0-linux /p:SelfContained=false /verbosity:minimal
+
+      - name: Build .Net7 CLI Windows
         run: msbuild /t:AssetStudio_CLI:publish /p:Configuration=Release /p:TargetFramework=net7.0-windows /p:SelfContained=false /verbosity:minimal
 
-      - name: Build .Net8 CLI
+      - name: Build .Net8 CLI Windows
         run: msbuild /t:AssetStudio_CLI:publish /p:Configuration=Release /p:TargetFramework=net8.0-windows /p:SelfContained=false /verbosity:minimal
 
-      - name: Upload .Net7 Artifact
+      - name: Build .Net8 CLI Linux
+        run: msbuild /t:AssetStudio_CLI:publish /p:Configuration=Release /p:TargetFramework=net8.0-linux /p:SelfContained=false /verbosity:minimal
+
+      - name: Upload .Net7 Artifact Windows
         uses: actions/upload-artifact@v3
         with:
           name: net7.0-${{ github.sha }}
           path: AssetStudio.GUI/bin/Release/net7.0-windows/publish
 
-      - name: Upload .Net8 Artifact
+      - name: Upload .Net8 Artifact Windows
         uses: actions/upload-artifact@v3
         with:
           name: net8.0-${{ github.sha }}
           path: AssetStudio.GUI/bin/Release/net8.0-windows/publish
 
-      - name: Upload .Net7 CLI Artifact
+      - name: Upload .Net8 Artifact Linux
+        uses: actions/upload-artifact@v3
+        with:
+          name: net8.0-linux-${{ github.sha }}
+          path: AssetStudio.GUI/bin/Release/net8.0-linux/publish
+
+      - name: Upload .Net7 CLI Artifact Windows
         uses: actions/upload-artifact@v3
         with:
           name: net7.0-${{ github.sha }}
           path: AssetStudio.GUI/bin/Release/net7.0-windows/publish
 
-      - name: Upload .Net8 CLI Artifact
+      - name: Upload .Net8 CLI Artifact Windows
         uses: actions/upload-artifact@v3
         with:
           name: net8.0-${{ github.sha }}
           path: AssetStudio.GUI/bin/Release/net8.0-windows/publish
+
+      - name: Upload .Net8 CLI Artifact Linux
+        uses: actions/upload-artifact@v3
+        with:
+          name: net8.0--linux${{ github.sha }}
+          path: AssetStudio.GUI/bin/Release/net8.0-linux/publish
